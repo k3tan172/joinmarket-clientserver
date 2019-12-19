@@ -13,7 +13,8 @@ from configparser import ConfigParser, NoOptionError
 import jmbitcoin as btc
 from jmclient.jsonrpc import JsonRpc
 from jmbase.support import (get_log, joinmarket_alert, core_alert, debug_silence,
-                            set_logging_level, jmprint, set_logging_color)
+                            set_logging_level, jmprint, set_logging_color,
+                            JM_APP_NAME, lookup_appdata_folder)
 from jmclient.podle import set_commitment_file
 
 log = get_log()
@@ -64,6 +65,8 @@ class AttributeDict(object):
 
 global_singleton = AttributeDict()
 global_singleton.JM_VERSION = 5
+global_singleton.APPNAME = JM_APP_NAME
+global_singleton.homedir = None
 global_singleton.nickname = None
 global_singleton.BITCOIN_DUST_THRESHOLD = 2730
 global_singleton.DUST_THRESHOLD = 10 * global_singleton.BITCOIN_DUST_THRESHOLD
@@ -422,11 +425,24 @@ def remove_unwanted_default_settings(config):
 
 def load_program_config(config_path=None, bs=None):
     global_singleton.config.readfp(io.StringIO(defaultconfig))
-    remove_unwanted_default_settings(global_singleton.config)
     if not config_path:
-        config_path = os.getcwd()
+        config_path = lookup_appdata_folder(global_singleton.APPNAME)
+    # we set the global home directory, but keep the config_path variable
+    # for callers of this function:
+    global_singleton.homedir = config_path
+    jmprint("User data will be stored and accessed in this location: " + \
+            global_singleton.homedir, "info")
+    if not os.path.exists(global_singleton.homedir):
+        os.makedirs(global_singleton.homedir)
+    #prepare folders for wallets and logs
+    if not os.path.exists(os.path.join(global_singleton.homedir, "wallets")):
+        os.makedirs(os.path.join(global_singleton.homedir, "wallets"))
+    if not os.path.exists(os.path.join(global_singleton.homedir, "logs")):
+        os.makedirs(os.path.join(global_singleton.homedir, "logs"))
     global_singleton.config_location = os.path.join(
-        config_path, global_singleton.config_location)
+        global_singleton.homedir, global_singleton.config_location)
+
+    remove_unwanted_default_settings(global_singleton.config)
     loadedFiles = global_singleton.config.read([global_singleton.config_location
                                                ])
     #Hack required for electrum; must be able to enforce a different
