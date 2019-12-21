@@ -423,7 +423,7 @@ def remove_unwanted_default_settings(config):
             config.remove_section(section)
 
 
-def load_program_config(config_path=None, bs=None):
+def load_program_config(config_path="", bs=None):
     global_singleton.config.readfp(io.StringIO(defaultconfig))
     if not config_path:
         config_path = lookup_appdata_folder(global_singleton.APPNAME)
@@ -434,11 +434,13 @@ def load_program_config(config_path=None, bs=None):
             global_singleton.homedir, "info")
     if not os.path.exists(global_singleton.homedir):
         os.makedirs(global_singleton.homedir)
-    #prepare folders for wallets and logs
+    # prepare folders for wallets and logs
     if not os.path.exists(os.path.join(global_singleton.homedir, "wallets")):
         os.makedirs(os.path.join(global_singleton.homedir, "wallets"))
     if not os.path.exists(os.path.join(global_singleton.homedir, "logs")):
         os.makedirs(os.path.join(global_singleton.homedir, "logs"))
+    if not os.path.exists(os.path.join(global_singleton.homedir, "cmtdata")):
+        os.makedirs(os.path.join(global_singleton.homedir, "cmtdata"))
     global_singleton.config_location = os.path.join(
         global_singleton.homedir, global_singleton.config_location)
 

@@ -75,14 +75,12 @@ from jmclient import load_program_config, get_network, update_persist_config,\
     RegtestBitcoinCoreInterface, tumbler_taker_finished_update,\
     get_tumble_log, restart_wait, tumbler_filter_orders_callback,\
     wallet_generate_recover_bip39, wallet_display, get_utxos_enabled_disabled,\
-    NO_ROUNDING
+    NO_ROUNDING, get_max_cj_fee_values, get_default_max_absolute_fee, \
+    get_default_max_relative_fee
 from qtsupport import ScheduleWizard, TumbleRestartWizard, config_tips,\
     config_types, QtHandler, XStream, Buttons, OkButton, CancelButton,\
     PasswordDialog, MyTreeWidget, JMQtMessageBox, BLUE_FG,\
     donation_more_message
-# TODO refactor; these functions do not belong in cli_options:
-from cli_options import get_max_cj_fee_values, get_default_max_absolute_fee, \
-     get_default_max_relative_fee
 
 from twisted.internet import task
 
@@ -1801,6 +1799,8 @@ def get_wallet_printout(wallet_service):
 ################################
 config_load_error = False
 try:
+    # note: uses default config_path value of "" always, i.e. user
+    # data is always in ~/.joinmarket for JM-QT
     load_program_config()
 except Exception as e:
     config_load_error = "Failed to setup joinmarket: "+repr(e)

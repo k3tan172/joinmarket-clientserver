@@ -9,7 +9,7 @@ import sys
 
 # global Joinmarket constants
 JM_WALLET_NAME_PREFIX = "joinmarket-wallet-"
-JM_APP_NAME = "JoinMarket"
+JM_APP_NAME = "joinmarket"
 
 # Exit status codes
 EXIT_SUCCESS = 0

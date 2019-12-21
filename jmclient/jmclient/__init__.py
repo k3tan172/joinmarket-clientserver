@@ -43,6 +43,11 @@ from .commitment_utils import get_utxo_info, validate_utxo_data, quit
 from .taker_utils import (tumbler_taker_finished_update, restart_waiter,
                              restart_wait, get_tumble_log, direct_send,
                              tumbler_filter_orders_callback)
+from .cli_options import (add_base_options, add_common_options,
+                          get_tumbler_parser, get_max_cj_fee_values,
+                          check_regtest, get_sendpayment_parser,
+                          get_default_max_absolute_fee,
+                          get_default_max_relative_fee)
 from .wallet_utils import (
     wallet_tool_main, wallet_generate_recover_bip39, open_wallet,
     open_test_wallet_maybe, create_wallet, get_wallet_cls, get_wallet_path,
@@ -50,6 +55,7 @@ from .wallet_utils import (
 from .wallet_service import WalletService
 from .maker import Maker, P2EPMaker
 from .yieldgenerator import YieldGenerator, YieldGeneratorBasic, ygmain
+
 # Set default logging handler to avoid "No handler found" warnings.
 
 try:
