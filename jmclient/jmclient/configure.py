@@ -422,7 +422,6 @@ def remove_unwanted_default_settings(config):
         if section.startswith('MESSAGING:'):
             config.remove_section(section)
 
-
 def load_program_config(config_path="", bs=None):
     global_singleton.config.readfp(io.StringIO(defaultconfig))
     if not config_path:
@@ -515,6 +514,12 @@ def load_program_config(config_path="", bs=None):
     set_commitment_file(os.path.join(config_path,
                                          global_singleton.commit_file_location))
 
+
+def load_test_config(**kwargs):
+    if "config_path" not in kwargs:
+        load_program_config(config_path=".", **kwargs)
+    else:
+        load_program_config(**kwargs)
 
 ##########################################################
 ## Returns a tuple (rpc_user: String, rpc_pass: String) ##
