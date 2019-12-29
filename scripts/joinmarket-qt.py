@@ -1554,7 +1554,7 @@ class JMMainWindow(QMainWindow):
     def selectWallet(self, testnet_seed=None):
         if jm_single().config.get("BLOCKCHAIN", "blockchain_source") != "regtest":
             # guaranteed to exist as load_program_config was called on startup:
-            wallets_path = os.path.join(jm_single().homedir, 'wallets')
+            wallets_path = os.path.join(jm_single().datadir, 'wallets')
             firstarg = QFileDialog.getOpenFileName(self,
                                                    'Choose Wallet File',
                                                    wallets_path,
@@ -1741,7 +1741,7 @@ class JMMainWindow(QMainWindow):
         if not seed:
             try:
                 # guaranteed to exist as load_program_config was called on startup:
-                wallets_path = os.path.join(jm_single().homedir, 'wallets')
+                wallets_path = os.path.join(jm_single().datadir, 'wallets')
                 success = wallet_generate_recover_bip39("generate",
                                                    wallets_path,
                                                    "wallet.jmdat",

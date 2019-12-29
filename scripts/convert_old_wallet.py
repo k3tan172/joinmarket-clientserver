@@ -137,8 +137,8 @@ def main():
                         help="Name of the new wallet file. Default: [old wallet name].jmdat")
     # hack; not using jmclient.add_base_options because ArgumentParser not OptionParser:
     parser.add_argument(
-        '--homedir',
-        dest='homedir',
+        '--datadir',
+        dest='datadir',
         default="",
         help='Specify the path to a directory you want to use to store your user'
         'data - wallets, logs and commitment files - and your joinmarket.cfg. '
@@ -150,7 +150,7 @@ def main():
     except Exception as e:
         print("Error: {}".format(e))
         return
-    load_program_config(config_path=args.homedir)
+    load_program_config(config_path=args.datadir)
     data = parse_old_wallet(args.old_wallet_file)
 
     if not data:

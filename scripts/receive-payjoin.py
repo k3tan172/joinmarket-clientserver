@@ -47,7 +47,7 @@ def receive_payjoin_main(makerclass):
     if receiving_amount < 0:
         parser.error("Receiving amount must be a positive number")
         sys.exit(EXIT_FAILURE)
-    load_program_config(config_path=options.homedir)
+    load_program_config(config_path=options.datadir)
 
     check_regtest()
 

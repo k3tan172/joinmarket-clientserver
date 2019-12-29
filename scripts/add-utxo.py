@@ -148,7 +148,7 @@ def main():
         default=False
     )
     (options, args) = parser.parse_args()
-    load_program_config(config_path=options.homedir)
+    load_program_config(config_path=options.datadir)
     #TODO; sort out "commit file location" global so this script can
     #run without this hardcoding:
     utxo_data = []

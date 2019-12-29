@@ -463,7 +463,7 @@ def main():
                       help='port to listen on, default=62601',
                       default=62601)
     (options, args) = parser.parse_args()
-    load_program_config(config_path=options.homedir)
+    load_program_config(config_path=options.datadir)
     hostport = (options.host, options.port)
     mcs = [ObIRCMessageChannel(c) for c in get_irc_mchannels()]
     mcc = MessageChannelCollection(mcs)

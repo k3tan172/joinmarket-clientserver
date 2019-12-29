@@ -1195,7 +1195,7 @@ def wallet_sanity_check(wallet):
 
 def get_wallet_path(file_name, wallet_dir=None):
     if not wallet_dir:
-        wallet_dir = os.path.join(jm_single().homedir, 'wallets')
+        wallet_dir = os.path.join(jm_single().datadir, 'wallets')
     return os.path.join(wallet_dir, file_name)
 
 
@@ -1204,10 +1204,10 @@ def wallet_tool_main(wallet_root_path):
     """
     parser = get_wallettool_parser()
     (options, args) = parser.parse_args()
-    load_program_config(config_path=options.homedir)
+    load_program_config(config_path=options.datadir)
     check_regtest(blockchain_start=False)
     # full path to the wallets/ subdirectory in the user data area:
-    wallet_root_path = os.path.join(jm_single().homedir, wallet_root_path)
+    wallet_root_path = os.path.join(jm_single().datadir, wallet_root_path)
     noseed_methods = ['generate', 'recover']
     methods = ['display', 'displayall', 'summary', 'showseed', 'importprivkey',
                'history', 'showutxos', 'freeze']

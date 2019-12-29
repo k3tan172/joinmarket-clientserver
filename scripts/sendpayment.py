@@ -52,7 +52,7 @@ def pick_order(orders, n): #pragma: no cover
 def main():
     parser = get_sendpayment_parser()
     (options, args) = parser.parse_args()
-    load_program_config(config_path=options.homedir)
+    load_program_config(config_path=options.datadir)
     if options.p2ep and len(args) != 3:
         parser.error("PayJoin requires exactly three arguments: "
                      "wallet, amount and destination address.")

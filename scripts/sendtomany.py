@@ -96,7 +96,7 @@ def main():
     )
     add_base_options(parser)
     (options, args) = parser.parse_args()
-    load_program_config(config_path=options.homedir)
+    load_program_config(config_path=options.datadir)
     if len(args) < 2:
         quit(parser, 'Invalid syntax')
     u = args[0]

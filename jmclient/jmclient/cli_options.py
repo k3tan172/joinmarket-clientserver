@@ -31,8 +31,8 @@ def add_base_options(parser):
     usage of the option.
     """
     parser.add_option(
-        '--homedir',
-        dest='homedir',
+        '--datadir',
+        dest='datadir',
         default="",
         help='Specify the path to a directory you want to use to store your user'
         'data - wallets, logs and commitment files - and your joinmarket.cfg. '

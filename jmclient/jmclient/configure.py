@@ -66,7 +66,7 @@ class AttributeDict(object):
 global_singleton = AttributeDict()
 global_singleton.JM_VERSION = 5
 global_singleton.APPNAME = JM_APP_NAME
-global_singleton.homedir = None
+global_singleton.datadir = None
 global_singleton.nickname = None
 global_singleton.BITCOIN_DUST_THRESHOLD = 2730
 global_singleton.DUST_THRESHOLD = 10 * global_singleton.BITCOIN_DUST_THRESHOLD
@@ -428,20 +428,20 @@ def load_program_config(config_path="", bs=None):
         config_path = lookup_appdata_folder(global_singleton.APPNAME)
     # we set the global home directory, but keep the config_path variable
     # for callers of this function:
-    global_singleton.homedir = config_path
+    global_singleton.datadir = config_path
     jmprint("User data will be stored and accessed in this location: " + \
-            global_singleton.homedir, "info")
-    if not os.path.exists(global_singleton.homedir):
-        os.makedirs(global_singleton.homedir)
+            global_singleton.datadir, "info")
+    if not os.path.exists(global_singleton.datadir):
+        os.makedirs(global_singleton.datadir)
     # prepare folders for wallets and logs
-    if not os.path.exists(os.path.join(global_singleton.homedir, "wallets")):
-        os.makedirs(os.path.join(global_singleton.homedir, "wallets"))
-    if not os.path.exists(os.path.join(global_singleton.homedir, "logs")):
-        os.makedirs(os.path.join(global_singleton.homedir, "logs"))
-    if not os.path.exists(os.path.join(global_singleton.homedir, "cmtdata")):
-        os.makedirs(os.path.join(global_singleton.homedir, "cmtdata"))
+    if not os.path.exists(os.path.join(global_singleton.datadir, "wallets")):
+        os.makedirs(os.path.join(global_singleton.datadir, "wallets"))
+    if not os.path.exists(os.path.join(global_singleton.datadir, "logs")):
+        os.makedirs(os.path.join(global_singleton.datadir, "logs"))
+    if not os.path.exists(os.path.join(global_singleton.datadir, "cmtdata")):
+        os.makedirs(os.path.join(global_singleton.datadir, "cmtdata"))
     global_singleton.config_location = os.path.join(
-        global_singleton.homedir, global_singleton.config_location)
+        global_singleton.datadir, global_singleton.config_location)
 
     remove_unwanted_default_settings(global_singleton.config)
     loadedFiles = global_singleton.config.read([global_singleton.config_location

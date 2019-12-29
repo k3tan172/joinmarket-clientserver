@@ -239,7 +239,7 @@ def ygmain(ygclass, txfee=1000, cjfee_a=200, cjfee_r=0.002, ordertype='swreloffe
         sys.exit(EXIT_ARGERROR)
     nickserv_password = options.password
 
-    load_program_config(config_path=options.homedir)
+    load_program_config(config_path=options.datadir)
 
     wallet_path = get_wallet_path(wallet_name, 'wallets')
     wallet = open_test_wallet_maybe(
