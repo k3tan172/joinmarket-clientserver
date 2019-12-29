@@ -1553,12 +1553,11 @@ class JMMainWindow(QMainWindow):
 
     def selectWallet(self, testnet_seed=None):
         if jm_single().config.get("BLOCKCHAIN", "blockchain_source") != "regtest":
-            current_path = os.path.dirname(os.path.realpath(__file__))
-            if os.path.isdir(os.path.join(current_path, 'wallets')):
-                current_path = os.path.join(current_path, 'wallets')
+            # guaranteed to exist as load_program_config was called on startup:
+            wallets_path = os.path.join(jm_single().homedir, 'wallets')
             firstarg = QFileDialog.getOpenFileName(self,
                                                    'Choose Wallet File',
-                                                   directory=current_path,
+                                                   wallets_path,
                                                    options=QFileDialog.DontUseNativeDialog)
             #TODO validate the file looks vaguely like a wallet file
             log.debug('Looking for wallet in: ' + str(firstarg))
@@ -1741,8 +1740,10 @@ class JMMainWindow(QMainWindow):
         '''
         if not seed:
             try:
+                # guaranteed to exist as load_program_config was called on startup:
+                wallets_path = os.path.join(jm_single().homedir, 'wallets')
                 success = wallet_generate_recover_bip39("generate",
-                                                   "wallets",
+                                                   wallets_path,
                                                    "wallet.jmdat",
                                                    callbacks=(self.displayWords,
                                                               None,
